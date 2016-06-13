@@ -91,8 +91,8 @@
     </div>
     <div class="loginSection">
         <form>
-            <h4>Username</h4></br>
-            <input type="text" name="username">
+            <h4>Email</h4></br>
+            <input type="text" name="email">
             <h4>Password</h4></br>
             <input type="password" name="password"></br></br>
             <input type="button" value="Login" class="loginButton" onclick="">

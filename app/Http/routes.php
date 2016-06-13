@@ -23,13 +23,11 @@ Route::get('/generate', function () {
     return view('form/formGenerator');
 });
 
-Route::get('/login', function () {
-    return view('user/loginForm');
-});
+Route::controllers([
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController'
+]);
 
-Route::get('/register', function () {
-    return view('user/registerForm');
-});
 
 
 
