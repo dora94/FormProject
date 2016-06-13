@@ -26,7 +26,7 @@
             width:70%;
         }
 
-        .loginSection{
+        .registerSection{
             position: fixed;
             width:300px;
             height:300px;
@@ -59,9 +59,9 @@
         input:hover, input:focus{
             border-bottom:2px solid cadetblue;
         }
-        .loginButton{
+        .registerButton{
             width:30%;
-            height:90%;
+            height:40px;
             background-color: #2e6da4;
             color:white;
             border-radius:5px;
@@ -89,13 +89,22 @@
     <div id="bigLogo">
         <img src="/images/logo.png">
     </div>
-    <div class="loginSection">
+    <div class="registerSection">
         <form>
-            <h4>Username</h4></br>
-            <input type="text" name="username">
-            <h4>Password</h4></br>
-            <input type="password" name="password"></br></br>
-            <input type="button" value="Login" class="loginButton" onclick="">
+            <br>
+            <input type="text" name="firstname" placeholder="First Name">
+            </br></br>
+            <input type="text" name="lastname" placeholder="Last Name">
+            </br></br>
+            <input type="email" name="email" placeholder="Email Address">
+            </br></br>
+            <input type="text" name="username" placeholder="UserName">
+            </br></br>
+            <input type="password" name="password" placeholder="Password">
+            </br></br>
+            <input type="password" name="confpassword" placeholder="Confirm Password">
+            </br></br>
+            <input type="button" value="Register" class="registerButton" onclick="">
         </form>
     </div>
 </div>
