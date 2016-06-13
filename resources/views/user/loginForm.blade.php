@@ -29,7 +29,7 @@
         .loginSection{
             position: fixed;
             width:300px;
-            height:300px;
+            height:350px;
             margin-left:60%;
             margin-top:200px;
             border: 5px groove cadetblue;
@@ -53,14 +53,14 @@
             font-size:20px;
             font-family: "Calisto MT";
             border:none;
-            border: 1px solid lightgrey;
+            border: 2px solid lightgrey;
             border-bottom: 2px solid darkgrey;
         }
         input:hover, input:focus{
             border-bottom:2px solid cadetblue;
         }
         .loginButton{
-            width:30%;
+            width:80%;
             height:90%;
             background-color: #2e6da4;
             color:white;
@@ -69,6 +69,7 @@
             text-align: center;
             font-size:15px;
             font-family: "Calisto MT";
+            margin-bottom: 20px;
         }
         br{
             margin: 0 0;
@@ -96,6 +97,7 @@
             <h4>Password</h4></br>
             <input type="password" name="password"></br></br>
             <input type="button" value="Login" class="loginButton" onclick="">
+            <input type="button" value="Continue without login" class="loginButton" onclick="">
         </form>
     </div>
 </div>
