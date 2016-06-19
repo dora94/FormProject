@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="jscolor.js"></script>
     <meta charset="UTF-8">
     <title>Register</title>
     <style>
@@ -44,9 +43,6 @@
             padding-top:100px;
             border:1px solid lightgrey;
         }
-
-
-
         .formInformation{
             width:100%;
             height:30%;
@@ -121,7 +117,7 @@
             height:100%;
         }
         .removeQuestion{
-             height:100%;
+             height:25px;
          }
         .removeQuestion img{
             height:100%;
@@ -171,7 +167,7 @@
             margin: 5px 0;
         }
         .answerText{
-            width:80%;
+            width:99%;
             height:90%;
             text-align: left;
             font-size:15px;
@@ -262,8 +258,32 @@
                         $(this).parent().children().last('.newOption').remove();
                 }
             });
+            $('.fontFamily').bind("change",function() {
+                $(this).parent().siblings().css("font-family", this.value);
+            });
+
+            $('.fontStyle').bind("change",function(){
+                $(this).parent().siblings().css("font-style", this.value);
+            });
+
+            $('.textColor').bind("change",function(){
+                $(this).parent().siblings().css("color", this.value);
+            });
+
+            $('.removeQuestion').bind("click",function(){
+                $(this).parent().parent().remove();
+            });
         });
 
+        $(document).ready(function(){
+
+            $('.fontFamily > option').each(function() {
+                $(this).css("font-family", this.value);
+            });
+        });
+        function removeQuestion(element){
+            $(element).parent().parent().detach();
+        }
         function AddNewOption(element){
             
             switch($('.questionType').val()){
@@ -289,6 +309,8 @@
 
             }
         }
+
+
     </script>
 </head>
 <body>

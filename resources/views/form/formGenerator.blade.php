@@ -27,13 +27,20 @@
 
 <div id="secretContent" style="display:none;">
     <div class="questionOptions">
-        <button class="removeQuestion"><img src="/images/remove.png"></button>
+        <button class="removeQuestion" onclick="removeQuestion(this)"><img src="/images/remove.png"></button>
         {{--<input type="button" value="Remove" class="actionsButton" onclick="">--}}
         <select class="fontFamily">
-            <option>Calisto MT</option>
-            <option>Times New Roman</option>
-            <option>Verdana</option>
-            <option>Calibri</option>
+            <option value="Calisto MT">Calisto MT</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Calibri">Calibri</option>
+            <option value="Lucida Console">Lucida Console</option>
+            <option value="Impact">Impact</option>
+            <option value="Arial">Arial</option>
+        </select>
+        <select class="fontStyle">
+            <option value="normal">normal</option>
+            <option value="italic">italic</option>
         </select>
         <input type="color" class="textColor">
         <input type="checkbox" name="isrequired">Required
