@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <input type="button" id="saveForm" value="Save form">
+    <input type="button" id="saveForm" value="Save form" onclick="saveForm()">
 </div>
 
 
@@ -43,7 +43,7 @@
             <option value="italic">italic</option>
         </select>
         <input type="color" class="textColor">
-        <input type="checkbox" name="isrequired">Required
+        <input type="checkbox" name="isrequired" class="isRequired">Required
     </div>
 </div>
 @endsection

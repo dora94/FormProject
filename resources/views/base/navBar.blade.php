@@ -89,6 +89,6 @@
         </ul>
     </div>
 </nav>
-@yield('content')
+@yield('allcontent')
 </body>
 </html>

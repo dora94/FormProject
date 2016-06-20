@@ -309,6 +309,47 @@
 
             }
         }
+        function getType(data){
+            if($(data).find('input[type=text]').size() != 0)
+                    return 1;
+            if($(data).find('input[type=radio]').size() != 0)
+                    return 2;
+            if($(data).find('input[type=checkbox]').size() != 0)
+                    return 3;
+            if($(data).find('select').size() != 0 )
+                    return 4;
+            //need to add case for conditional question
+        }
+
+        function isRequired(data){
+           return $(data).find('.isRequired:checked').length > 0;
+        }
+        function saveForm(){
+            var form = '{"questions": [';
+
+            $('.question').each(function(){
+                var type = getType(this);
+                form = form + '{"text":"' +$(this).find('h3').first().text() + '",';
+                form = form + '"type":' + type + ', "isRequired":' + isRequired(this);
+
+                if(type == 2 || type == 3){
+                    form = form + ',"options":[';
+                    $(this).find('input').each(function(){
+                        form = form + '{"optionText":"' + $(this).val() + '"},';
+                    })
+                    form = form.slice(0,form.length-1);
+                    form = form + ']';
+                }
+                else
+                    form = form + ',"options":[]';
+                form = form + '},';
+            });
+
+            form = form.slice(0,form.length-1);
+            form = form + ']}';
+            console.log(form);
+            console.log(JSON.parse(form));
+        }
 
 
     </script>
