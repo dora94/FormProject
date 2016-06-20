@@ -18,7 +18,7 @@
             color:lightgrey;
         }
         .logoSection{
-            width:90%;
+            width:85%;
             height:90%;
             float:left;
         }
@@ -27,7 +27,7 @@
         }
         .menuSection{
             height:90%;
-            width:10%;
+            width:15%;
             float:left;
             text-align:right;
         }
@@ -201,14 +201,10 @@
         #menuBar{
             display:block;
         }
-        #languageMenu{
-            display:none;
-        }
-        #languageMenu li img{
-            width:50px;
-        }
-        #menuBar li img:hover + #languageMenu, #languageMenu:hover{
-            display: block;
+
+        .langImages{
+            heigth:50%;
+            width:50%;
         }
 
 
@@ -233,6 +229,12 @@
                 case "1":
                     $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3></br><input type="text" class="answerText"></div>');
                     break;
+                case "6":
+                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3></br><input type="date" class="answerText"></div>');
+                    break;
+                case "7":
+                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3></br><input type="number" class="answerText"></div>');
+                    break;
                 case "2":
                     $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3></br>' + $('.optionsList').html() + '</div>');
                     $('.optionsList').html("");
@@ -245,11 +247,16 @@
                     $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3></br>' + $('.optionsList').html() + '</div>');
                     $('.optionsList').html("");
                     break;
+                case "5":
+                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3></br>' + $('.optionsList').html() + '</div>');
+                    $('.optionsList').html("");
+                    break;
             }
         };
         $(document).change(function(){
             $('.questionType').bind("change",function() {
-                if (this.value != "1") {
+                console.log($.inArray( this.value, ['2','3','4']));
+                if ($.inArray( this.value, ['2','3','4','5']) != -1 ) {
                     if ($(this).parent().children().last().attr("class") != 'newOption')
                         $(this).parent().append(' <div class="newOption"><input type="text" class="optionText"><input type="button" value="Add Option" class="submitButton" onclick="AddNewOption(this)"></div>');
                 }
@@ -324,6 +331,22 @@
         function isRequired(data){
            return $(data).find('.isRequired:checked').length > 0;
         }
+        function sendForm(data){
+            $.ajax({
+                url: 'generate',
+                type: 'POST',
+                data: data,
+                dataType: 'json',
+                success: function(info){
+                    console.log(info);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+
+        }
         function saveForm(){
             var form = '{"questions": [';
 
@@ -347,8 +370,8 @@
 
             form = form.slice(0,form.length-1);
             form = form + ']}';
-            console.log(form);
-            console.log(JSON.parse(form));
+
+            sendForm(JSON.parse(form));
         }
 
 
@@ -361,13 +384,8 @@
     </div>
     <div class="menuSection">
         <ul id="menuBar">
-            <li>
-                <img src="/images/language.png" class="menuImages">
-                <ul id="languageMenu">
-                    <li><img src="/images/english.png" class="menuImages"></li>
-                    <li><img src="/images/romana.png" class="menuImages"></li>
-                </ul>
-            </li>
+            <li><img src="/images/english.png" class="langImages" onclick='changeLanguage("en")'></li>
+            <li><img src="/images/romana.png" class="langImages" onclick='changeLanguage("ro")'></li>
             <li><img src="/images/login.png" class="menuImages"></li>
         </ul>
     </div>

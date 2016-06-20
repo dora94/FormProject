@@ -16,12 +16,14 @@ Route::get('/', function () {
 });
 
 Route::get('/basic', function () {
-    return view('form/baseForm');
+    return view('base/navBar');
 });
 
 Route::get('/generate', function () {
     return view('form/formGenerator');
 });
+
+Route::post('generate','FormController@store');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

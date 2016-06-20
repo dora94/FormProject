@@ -13,6 +13,8 @@
             <option value="3">Single Choice-select</option>
             <option value="4">Multiple Choice</option>
             <option value="5">Condition</option>
+            <option value="6">Date</option>
+            <option value="7">Number</option>
         </select>
         <input type="text" placeholder="Question Text" class="questionText">
         <input type="button" value="Add Question" class="submitButton" onclick="AddNewQuestion(this)">

@@ -18,7 +18,7 @@
             color:lightgrey;
         }
         .logoSection{
-            width:90%;
+            width:85%;
             height:90%;
             float:left;
         }
@@ -27,7 +27,7 @@
         }
         .menuSection{
             height:90%;
-            width:10%;
+            width:15%;
             float:left;
             text-align:right;
         }
@@ -59,18 +59,20 @@
         #menuBar{
             display:block;
         }
-        #languageMenu{
-            display:none;
+
+        .langImages{
+            heigth:50%;
+            width:50%;
         }
-        #languageMenu li img{
-            width:50px;
-        }
-        #menuBar li img:hover + #languageMenu, #languageMenu:hover{
-            display: block;
-        }
+
 
 
     </style>
+    <script>
+        function changeLanguage(lang){
+
+        }
+    </script>
 <body>
 <nav class="navigationBar">
     <div class="logoSection">
@@ -78,13 +80,8 @@
     </div>
     <div class="menuSection">
         <ul id="menuBar">
-            <li>
-                <img src="/images/language.png" class="menuImages">
-                <ul id="languageMenu">
-                    <li><img src="/images/english.png" class="menuImages"></li>
-                    <li><img src="/images/romana.png" class="menuImages"></li>
-                </ul>
-            </li>
+            <li><img src="/images/english.png" class="langImages" onclick='changeLanguage("en")'></li>
+             <li><img src="/images/romana.png" class="langImages" onclick='changeLanguage("ro")'></li>
             <li><img src="/images/login.png" class="menuImages"></li>
         </ul>
     </div>
