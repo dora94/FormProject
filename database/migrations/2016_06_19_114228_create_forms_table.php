@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFormTable extends Migration
+class CreateFormsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,16 +15,16 @@ class CreateFormTable extends Migration
         Schema::create('forms', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->integer('userId');
+            $table->integer('userId')->unsigned();
             $table->string('description');
-            $table->bit('isQuiz');
+            $table->boolean('isQuiz');
             $table->string('password');
-            $table->bit('isClosed');
+            $table->boolean('isClosed');
             $table->integer('maxSubmission');
             $table->string('url');
             $table->timestamps();
 
-            $table->foreign('userId')->references('id')->on('users');
+            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

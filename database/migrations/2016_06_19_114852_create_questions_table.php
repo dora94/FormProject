@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQuestionTable extends Migration
+class CreateQuestionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,14 +16,14 @@ class CreateQuestionTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->integer('type');
-            $table->integer('formId');
-            $table->bit('isRequired');
+            $table->integer('formId')->unsigned();
+            $table->boolean('isRequired');
             $table->string('fontfamily');
             $table->string('fontcolor');
             $table->string('fontstyle');
             $table->timestamps();
 
-            $table->foreign('formId')->references('id')->on('form');
+            $table->foreign('formId')->references('id')->on('forms')->onDelete('cascade');
         });
     }
 

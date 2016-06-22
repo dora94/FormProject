@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubmissionTable extends Migration
+class CreateSubmissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +15,10 @@ class CreateSubmissionTable extends Migration
         Schema::create('submissions', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('submissionDate');
-            $table->integer('formId');
+            $table->integer('formId')->unsigned();
             $table->timestamps();
 
-            $table->foreign('formId')->references('id')->on('form');
+            $table->foreign('formId')->references('id')->on('forms')->onDelete('cascade');
         });
     }
 
