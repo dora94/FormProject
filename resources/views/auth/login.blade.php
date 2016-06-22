@@ -91,14 +91,13 @@
         <img src="/images/logo.png">
     </div>
     <div class="loginSection">
-        <form>
+        {!! Form::open(['id' => 'loginForm', 'method' => 'POST']) !!}
             <h4>Email</h4></br>
             <input type="text" name="email">
             <h4>Password</h4></br>
             <input type="password" name="password"></br></br>
-            <input type="button" value="Login" class="loginButton" onclick="">
-            <input type="button" value="Continue without login" class="loginButton" onclick="">
-        </form>
+            <input type="button" value="Login" class="loginButton" onclick="document.getElementById('loginForm').submit()">
+        {!! Form::close() !!}
     </div>
 </div>
 </body>
