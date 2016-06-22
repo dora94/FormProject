@@ -173,7 +173,7 @@ trait AuthenticatesUsers
      */
     public function logout()
     {
-        Auth::guard($this->getGuard())->logout();
+        Auth::logout();
 
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
     }
