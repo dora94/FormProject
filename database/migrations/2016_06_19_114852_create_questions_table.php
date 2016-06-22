@@ -18,6 +18,9 @@ class CreateQuestionTable extends Migration
             $table->integer('type');
             $table->integer('formId');
             $table->bit('isRequired');
+            $table->string('fontfamily');
+            $table->string('fontcolor');
+            $table->string('fontstyle');
             $table->timestamps();
 
             $table->foreign('formId')->references('id')->on('form');

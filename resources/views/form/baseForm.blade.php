@@ -225,6 +225,9 @@
 
             var val = $(element).siblings().first().val();
 
+            if($(element).siblings()[1].value.length == 0)
+                    alert('Question text cannot be empty');
+            else
             switch(val){
                 case "1":
                     $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3></br><input type="text" class="answerText"></div>');
@@ -269,12 +272,24 @@
                 $(this).parent().siblings().css("font-family", this.value);
             });
 
+            $('.globalFontFamily').bind("change",function() {
+                $(this).parent().parent().css("font-family", this.value);
+            });
+
             $('.fontStyle').bind("change",function(){
                 $(this).parent().siblings().css("font-style", this.value);
             });
 
+            $('.globalFontStyle').bind("change",function(){
+                $(this).parent().parent().css("font-style", this.value);
+            });
+
             $('.textColor').bind("change",function(){
-                $(this).parent().siblings().css("color", this.value);
+                $(this).parent().parent().css("color", this.value);
+            });
+
+            $('.globalFontColor').bind("change",function(){
+                $(this).parent().parent().css("color", this.value);
             });
 
             $('.removeQuestion').bind("click",function(){
@@ -284,15 +299,18 @@
 
         $(document).ready(function(){
 
-            $('.fontFamily > option').each(function() {
+            $('.fontFamily > option, .globalFontFamily > option').each(function() {
                 $(this).css("font-family", this.value);
             });
         });
         function removeQuestion(element){
             $(element).parent().parent().detach();
         }
+
         function AddNewOption(element){
-            
+            if($(element).siblings().first().val().length == 0)
+                    alert('Add option text!');
+            else
             switch($('.questionType').val()){
                 case "2":
                     $('.optionsList').append('<input type="radio" name="question" value="' + $('.optionText').val() + '" >' + $('.optionText').val()+'<br>');
@@ -325,6 +343,10 @@
                     return 3;
             if($(data).find('select').size() != 0 )
                     return 4;
+            if($(data).find('input[type=date]').size() != 0)
+                return 6;
+            if($(data).find('input[type=number]').size() != 0)
+                return 7;
             //need to add case for conditional question
         }
 
