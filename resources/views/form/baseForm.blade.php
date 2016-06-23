@@ -396,7 +396,7 @@
             form = form.slice(0,form.length-1);
             form = form + ']}';
 
-            sendForm(form);
+            sendForm(JSON.parse(form));
         }
 
 
