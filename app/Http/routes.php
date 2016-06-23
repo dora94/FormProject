@@ -39,6 +39,12 @@ Route::get('/redirect', 'SocialAuthController@redirect');
 Route::get('/callback', 'SocialAuthController@callback');
 
 
+/* Email route */
+Route::get('/sendEmail', function(){
+    return view('form.emailForm');
+});
+
+Route::post('/send', 'EmailController@send');
 
 
 

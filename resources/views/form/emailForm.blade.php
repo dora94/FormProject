@@ -6,7 +6,8 @@
 
 </head>
 <body>
-Hello!
-Hiiii!
+{!! Form::open(['url' => '/send', 'method' => 'POST']) !!}
+<button type="submit">Send email</button>
+{!! Form::close() !!}
 </body>
 </html>
