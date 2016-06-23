@@ -370,8 +370,10 @@
 
         }
         function saveForm(){
+            var isQuiz = $('#isquiz').attr('src') == "/images/checked_checkbox.png";
             var form = '{ "title":"' + $('.formInformation').children().first().val() +
-                    '","description":"' + $('.formInformation').children()[1].value + '","questions": [';
+                    '","description":"' + $('.formInformation').children()[1].value +
+                    '", "isQuiz":' + isQuiz +',"questions": [';
 
             $('.question').each(function(){
                 var type = getType(this);

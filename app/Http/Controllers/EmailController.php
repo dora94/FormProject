@@ -11,11 +11,12 @@ class EmailController extends Controller
 {
     public function send(Request $request)
     {
+        $emailTo = $request->input('emailTo');
 
-        Mail::send('form.basicForm', [], function ($m){
-            $m->to('husarudora@yahoo.com')->subject('Your Reminder!');
+        Mail::send('form.basicForm', [], function ($m) use ($emailTo) {
+            $m->to($emailTo)->subject('Your Reminder!');
         });
-
+        
         return response()->json(['message' => 'Request completed']);
     }
 }

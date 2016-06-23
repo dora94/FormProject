@@ -4,7 +4,7 @@
     <div class="formInformation">
         <input type="text" placeholder="Title">
         <textarea placeholder="Description"></textarea>
-        <input type="image" name="isquiz" src="/images/unchecked_checkbox.png" onclick="replaceSrc(this)">Quiz
+        <input type="image" name="isquiz" id="isquiz" src="/images/unchecked_checkbox.png" onclick="replaceSrc(this)">Quiz
         <select class="globalFontFamily">
             <option value="Calisto MT">Calisto MT</option>
             <option value="Times New Roman">Times New Roman</option>
