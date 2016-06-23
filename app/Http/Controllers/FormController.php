@@ -11,8 +11,13 @@ use Illuminate\Support\Facades\Auth;
 class FormController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function showCreate(){
-        return view('forms.baseForm');
+        return view('form.formGenerator');
     }
 
     public function store(Request $request)

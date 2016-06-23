@@ -23,7 +23,7 @@ Route::get('/basic', function () {
     return view('base/navBar');
 });
 
-Route::get('/generate', 'FormController@showCreate');
+Route::get('generate', 'FormController@showCreate');
 
 Route::post('generate','FormController@store');
 
