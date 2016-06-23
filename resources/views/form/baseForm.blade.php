@@ -355,12 +355,12 @@
         }
         function sendForm(data){
             console.log(data);
-
+            var $_token = $('#token').val();
             $.ajax({
                 url: 'generate',
                 type: 'POST',
-                data: data,
-                dataType: 'json',
+                headers: { 'X-XSRF-TOKEN': $_token},
+                data: { data: data , _token: '{{app('Illuminate\Encryption\Encrypter')->encrypt(csrf_token())}}'},
                 success: function(info){
                     console.log(info);
                 },
@@ -372,7 +372,8 @@
 
         }
         function saveForm(){
-            var form = '{ "token":"{{csrf_token()}}", "title":"' + $('.formInformation').children().first().val() + '","description":"' + $('.formInformation').children()[1].value + '","questions": [';
+            var form = '{ "title":"' + $('.formInformation').children().first().val() +
+                    '","description":"' + $('.formInformation').children()[1].value + '","questions": [';
 
             $('.question').each(function(){
                 var type = getType(this);
@@ -395,13 +396,18 @@
             form = form.slice(0,form.length-1);
             form = form + ']}';
 
-            sendForm(JSON.parse(form));
+            sendForm(form);
         }
 
 
     </script>
 </head>
 <body>
+<?php
+        $encrypter = app('Illuminate\Encryption\Encrypter');
+        $encrypted_token = $encrypter->encrypt(csrf_token());
+        ?>
+<input id="token" type = hidden" value = "{{$encrypted_token}}">
 <nav class="navigationBar">
     <div class="logoSection">
         <img src="/images/logo.png">

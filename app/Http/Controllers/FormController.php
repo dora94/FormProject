@@ -11,7 +11,7 @@ class FormController extends Controller
 {
     public function store(Request $request)
     {
-        //do something with the data
+        return $request['_token'];
 
     }
 }
