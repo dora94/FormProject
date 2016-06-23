@@ -354,6 +354,8 @@
            return $(data).find('.isRequired:checked').length > 0;
         }
         function sendForm(data){
+            console.log(data);
+
             $.ajax({
                 url: 'generate',
                 type: 'POST',
@@ -370,7 +372,7 @@
 
         }
         function saveForm(){
-            var form = '{"questions": [';
+            var form = '{ "token":"{{csrf_token()}}", "title":"' + $('.formInformation').children().first().val() + '","description":"' + $('.formInformation').children()[1].value + '","questions": [';
 
             $('.question').each(function(){
                 var type = getType(this);
