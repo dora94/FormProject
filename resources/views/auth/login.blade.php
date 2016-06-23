@@ -98,6 +98,7 @@
             <input type="password" name="password"></br></br>
             <input type="button" value="Login" class="loginButton" onclick="document.getElementById('loginForm').submit()">
         {!! Form::close() !!}
+        <a href="/redirect">FB Login</a>
     </div>
 </div>
 </body>

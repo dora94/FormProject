@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/forms',function(){
+   return view('form/formList');
+});
+
 Route::get('/basic', function () {
     return view('base/navBar');
 });
@@ -29,6 +33,10 @@ Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController'
 ]);
+
+/* Facebook login */
+Route::get('/redirect', 'SocialAuthController@redirect');
+Route::get('/callback', 'SocialAuthController@callback');
 
 
 
