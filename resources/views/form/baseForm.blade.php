@@ -212,6 +212,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script>
 
+        $('.conditionRadio:not(:checked)').next('.newSection').hide();
+
         function replaceSrc(element){
             if($(element).attr("src") == "/images/unchecked_checkbox.png"){
                 $(element).attr("src","/images/checked_checkbox.png");
@@ -230,35 +232,47 @@
             else
             switch(val){
                 case "1":
-                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3></br><input type="text" class="answerText"></div>');
+                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3><input type="text" class="answerText"></div>');
                     break;
                 case "6":
-                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3></br><input type="date" class="answerText"></div>');
+                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3><input type="date" class="answerText"></div>');
                     break;
                 case "7":
-                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3></br><input type="number" class="answerText"></div>');
+                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3><input type="number" class="answerText"></div>');
                     break;
                 case "2":
-                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3></br>' + $('.optionsList').html() + '</div>');
-                    $('.optionsList').html("");
+                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3>' + $(element).parent().find('.optionsList:first').html() + '</div>');
+                    $(element).parent().find('.optionsList:first').html("")
                     break;
                 case "3":
-                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3></br>' + $('.optionsList').html() + '</div>');
-                    $('.optionsList').html("");
+                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3>' + $(element).parent().find('.optionsList:first').html() + '</div>');
+                    $(element).parent().find('.optionsList:first').html("")
                     break;
                 case "4":
-                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3></br>' + $('.optionsList').html() + '</div>');
-                    $('.optionsList').html("");
+                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3>' + $(element).parent().find('.optionsList:first').html() + '</div>');
+                    $(element).parent().find('.optionsList:first').html("");
                     break;
                 case "5":
-                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3></br>' + $('.optionsList').html() + '</div>');
-                    $('.optionsList').html("");
+                    $(element).parent().before('<div class="question">' + $('#secretContent').first().html() + '<h3 contenteditable="true">' + $(element).siblings()[1].value + '</h3>' + $(element).parent().find('.optionsList:first').html() + '</div>');
+                    $(element).parent().find('.optionsList:first').html("");
+                    $('.newSection').find('.newQuestion').remove();
+                    activateJavascript();
                     break;
             }
         };
+
+        function activateJavascript(){
+            $('.conditionRadio').parent().find('.newSection').hide();
+            $('.conditionRadio').bind("change", function(){
+                $(this).parent().find('.newSection').hide();
+                if($(this).is(':checked'))
+                    $(this).next().next().show();
+            });
+
+        }
         $(document).change(function(){
             $('.questionType').bind("change",function() {
-                console.log($.inArray( this.value, ['2','3','4']));
+
                 if ($.inArray( this.value, ['2','3','4','5']) != -1 ) {
                     if ($(this).parent().children().last().attr("class") != 'newOption')
                         $(this).parent().append(' <div class="newOption"><input type="text" class="optionText"><input type="button" value="Add Option" class="submitButton" onclick="AddNewOption(this)"></div>');
@@ -268,6 +282,7 @@
                         $(this).parent().children().last('.newOption').remove();
                 }
             });
+
             $('.fontFamily').bind("change",function() {
                 $(this).parent().siblings().css("font-family", this.value);
             });
@@ -311,25 +326,25 @@
             if($(element).siblings().first().val().length == 0)
                     alert('Add option text!');
             else
-            switch($('.questionType').val()){
+            switch($(element).parent().siblings().first().val()){
                 case "2":
-                    $('.optionsList').append('<input type="radio" name="question" value="' + $('.optionText').val() + '" >' + $('.optionText').val()+'<br>');
-                    $('.optionText').val("");
+                    $(element).parent().parent().find('.optionsList:first').append('<input type="radio" name="question" value="' + $(element).siblings().first().val() + '" >' + $(element).siblings().first().val()+'<br>');
+                    $(element).siblings().first().val("");
                     break;
                 case "3":
-                    if(!$('.choicesList').length)
-                        $('.optionsList').append("<select class='choicesList'></select>");
-                    $('.choicesList').append('<option value="' + $('.optionText').val() + '" >' + $('.optionText').val()+'</option><br>');
-                    $('.optionText').val("");
+                    if(!$(element).parent().parent().find('.choicesList:first').length)
+                        $(element).parent().parent().find('.optionsList:first').append("<select class='choicesList'></select>");
+                    $(element).parent().parent().find('.choicesList:first').append('<option value="' + $('.optionText').val() + '" >' + $('.optionText').val()+'</option><br>');
+                    $(element).siblings().first().val("");
                     break;
                 case "4":
-                    $('.optionsList').append('<input type="checkbox" name="question" value="' + $('.optionText').val() + '" >' + $('.optionText').val()+'<br>');
-                    $('.optionText').val("");
+                    $(element).parent().parent().find('.optionsList:first').append('<input type="checkbox" name="question" value="' + $('.optionText').val() + '" >' + $('.optionText').val()+'<br>');
+                    $(element).siblings().first().val("");
                     break;
                 case "5":
-                    $('.optionsList').last().append('<input type="radio" name="question" value="' + $('.optionText').val() + '" >' + $('.optionText').val()+'<br>');
-                    $('.optionsList').last().append('<div class="newSection"><div class="newQuestion"><select class="questionType"><option value="1">Text Answer</option><option value="2">Single Choice-radio</option><option value="3">Single Choice-select</option><option value="4">Multiple Choice</option><option value="5">Condition</option></select><input type="text" placeholder="Question Text" class="questionText"><input type="button" value="Add Question" class="submitButton" onclick="AddNewQuestion(this)"></div><div class="optionsList"></div></div>');
-                    $('.optionText').val("");
+                    $(element).parent().parent().find('.optionsList:first').append('<input type="radio" name="question" value="' + $('.optionText').val() + '" class="conditionRadio">' + $('.optionText').val()+'<br>');
+                    $(element).parent().parent().find('.optionsList:first').append('<div class="newSection"><div class="newQuestion"><select class="questionType"><option value="1">Text Answer</option><option value="2">Single Choice-radio</option><option value="3">Single Choice-select</option><option value="4">Multiple Choice</option><option value="5">Condition</option><option value="6">Date</option><option value="7">Number</option></select><input type="text" placeholder="Question Text" class="questionText"><input type="button" value="Add Question" class="submitButton" onclick="AddNewQuestion(this)"><div class="optionsList"></div></div></div>');
+                    $(element).siblings().first().val("");
                     break;
 
             }

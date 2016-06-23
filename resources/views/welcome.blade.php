@@ -30,15 +30,15 @@
                 display: inline-block;
             }
 
-            .title {
-                font-size: 96px;
+            .content img{
+                width:90%;
             }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <img src="/images/logo.png">
             </div>
         </div>
     </body>

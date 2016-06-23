@@ -98,7 +98,7 @@
             <input type="password" name="password"></br></br>
             <input type="button" value="Login" class="loginButton" onclick="document.getElementById('loginForm').submit()">
         {!! Form::close() !!}
-        <a href="/redirect">FB Login</a>
+        <a href="/redirect"><img src="/images/facebook.png" style="width:10%;">FB Login</a>
     </div>
 </div>
 </body>
