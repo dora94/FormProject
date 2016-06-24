@@ -9,5 +9,7 @@ use App\Models\Question;
 
 class QuestionController extends Controller
 {
-    //
+    public function create($data){
+        
+    }
 }

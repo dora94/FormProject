@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 class FormController extends Controller
 {
 
+    
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -32,7 +34,12 @@ class FormController extends Controller
 //            'isQuiz' => $recieved['isQuiz'],
             'url' => $url
         ];
-        Form::create($form);
+        $form = Form::create($form);
+        $formId = $form->id;
+        $questionsLevel1 = $request['questions'];
+        foreach ($questionsLevel1 as $question){
+
+        }
 
     }
 }

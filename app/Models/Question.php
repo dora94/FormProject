@@ -12,6 +12,9 @@ class Question extends Model
         'title',
         'type',
         'formId',
-        'isRequired'
+        'isRequired',
+        'fontfamily',
+        'fontcolor',
+        'fontstyle'
     ];
 }

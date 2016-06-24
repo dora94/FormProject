@@ -16,5 +16,6 @@ class Form extends Model
         'isQuiz',
         'isClosed',
         'maxSubmissions',
+        'url'
     ];
 }
