@@ -15,10 +15,10 @@ class CreateSubmissionsTable extends Migration
         Schema::create('submissions', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('submissionDate');
-            $table->integer('formId')->unsigned();
+            $table->integer('form_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('formId')->references('id')->on('forms')->onDelete('cascade');
+            $table->foreign('form_id')->references('id')->on('forms')->onDelete('cascade');
         });
     }
 

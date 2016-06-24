@@ -15,12 +15,12 @@ class CreateAnswersTable extends Migration
         Schema::create('answers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('answerValue');
-            $table->integer('questionId')->unsigned();
-            $table->integer('submissionId')->unsigned();
+            $table->integer('question_id')->unsigned();
+            $table->integer('submission_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('questionId')->references('id')->on('questions')->onDelete('cascade');
-            $table->foreign('submissionId')->references('id')->on('submissions')->onDelete('cascade');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
+            $table->foreign('submission_id')->references('id')->on('submissions')->onDelete('cascade');
         });
     }
 

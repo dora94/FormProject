@@ -11,7 +11,7 @@ class Question extends Model
     protected $fillable = [
         'title',
         'type',
-        'formId',
+        'form_id',
         'isRequired',
         'fontfamily',
         'fontcolor',

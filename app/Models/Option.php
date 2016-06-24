@@ -10,7 +10,7 @@ class Option extends Model
 
     protected $fillable = [
         'title',
-        'questionId',
+        'question_id',
         'isChecked'
     ];
 }

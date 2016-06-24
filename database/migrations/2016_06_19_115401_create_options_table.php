@@ -15,11 +15,11 @@ class CreateOptionsTable extends Migration
         Schema::create('options', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->integer('questionId')->unsigned();
+            $table->integer('question_id')->unsigned();
             $table->boolean('isChecked');
             $table->timestamps();
 
-            $table->foreign('questionId')->references('id')->on('questions')->onDelete('cascade');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
         });
     }
 

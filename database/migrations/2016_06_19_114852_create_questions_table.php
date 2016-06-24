@@ -16,14 +16,14 @@ class CreateQuestionsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->integer('type');
-            $table->integer('formId')->unsigned();
+            $table->integer('form_id')->unsigned();
             $table->boolean('isRequired');
             $table->string('fontfamily');
             $table->string('fontcolor');
             $table->string('fontstyle');
             $table->timestamps();
 
-            $table->foreign('formId')->references('id')->on('forms')->onDelete('cascade');
+            $table->foreign('form_id')->references('id')->on('forms')->onDelete('cascade');
         });
     }
 

@@ -15,7 +15,7 @@ class CreateFormsTable extends Migration
         Schema::create('forms', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->integer('userId')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->string('description');
             $table->boolean('isQuiz');
             $table->string('password');
@@ -24,7 +24,7 @@ class CreateFormsTable extends Migration
             $table->string('url');
             $table->timestamps();
 
-            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -10,7 +10,7 @@ class Answer extends Model
 
     protected $fillable = [
         'answerValue',
-        'questionId',
-        'submissionId'
+        'question_id',
+        'submission_id'
     ];
 }

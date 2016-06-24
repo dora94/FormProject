@@ -12,7 +12,7 @@ class Form extends Model
         'title',
         'description',
         'password',
-        'userId',
+        'user_id',
         'isQuiz',
         'isClosed',
         'maxSubmissions',

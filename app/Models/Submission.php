@@ -10,6 +10,6 @@ class Submission extends Model
 
     protected $fillable = [
         'submissionDate',
-        'formId'
+        'form_id'
     ];
 }
