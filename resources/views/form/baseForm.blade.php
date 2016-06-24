@@ -343,7 +343,7 @@
                     break;
                 case "5":
                     $(element).parent().parent().find('.optionsList:first').append('<input type="radio" name="question" value="' + $('.optionText').val() + '" class="conditionRadio option">' + $('.optionText').val()+'<br>');
-                    $(element).parent().parent().find('.optionsList:first').append('<div class="newSection"><div class="newQuestion"><select class="questionType"><option value="1">Text Answer</option><option value="2">Single Choice-radio</option><option value="3">Single Choice-select</option><option value="4">Multiple Choice</option><option value="5">Condition</option><option value="6">Date</option><option value="7">Number</option></select><input type="text" placeholder="Question Text" class="questionText"><input type="button" value="Add Question" class="submitButton" onclick="AddNewQuestion(this)"><div class="optionsList"></div></div></div>');
+                    $(element).parent().parent().find('.optionsList:first').append('<div class="newSection"><div class="newQuestion"><select class="questionType"><option value="1">Text Answer</option><option value="2">Single Choice-radio</option><option value="3">Single Choice-select</option><option value="4">Multiple Choice</option><option value="6">Date</option><option value="7">Number</option></select><input type="text" placeholder="Question Text" class="questionText"><input type="button" value="Add Question" class="submitButton" onclick="AddNewQuestion(this)"><div class="optionsList"></div></div></div>');
                     $(element).siblings().first().val("");
                     break;
 
@@ -390,8 +390,10 @@
             var form = '{ "title":"' + $('.formInformation').children().first().val() +
                     '","description":"' + $('.formInformation').children()[1].value +
                     '", "isQuiz":' + isQuiz +',"questions": [';
-
-            $('.mainSection > .question').each(function(){
+            var count = 0;
+            $('.mainSection').children().each(function(){
+               if($(this).hasClass('question')) {
+                   count = count + 1;
                 var type = getType(this);
                 var style = getFontStyle(this);
                 form = form + '{"text":"' +$(this).find('h3').first().text() + '",';
@@ -400,36 +402,37 @@
 
                 if(type == 2 || type == 3 || type == 4 || type == 5){
                     form = form + ',"options":[';
-                    $(this).find('.option').each(function(){
-                        form = form + '{"optionText":"' + $(this).val();
+                    $(this).children().each(function() {
+                        if ($(this).hasClass('option')) {
+                            form = form + '{"optionText":"' + $(this).val() + '"';
 
-                        if(type == 5){
-                            form = form + '", "section":{"questions":[';
-                            $(this).next().next().find('.question').each(function() {
-                                var type2 = getType(this);
-                                var style2 = getFontStyle(this);
+                            if (type == 5) {
+                                form = form + ',"section":{"questions":[';
+                                $(this).next().next().find('.question').each(function () {
+                                    var type2 = getType(this);
+                                    var style2 = getFontStyle(this);
 
-                                form = form + '{"text":"' + $(this).find('h3').first().text() + '",' +
-                                        '"type":' + type2 + ', "isRequired":' + isRequired(this) +
-                                        ', "fontFamily":"' + style2[0] + '", "fontStyle":"' + style2[1] + '","textColor":"' + style2[2];
-                                form = form + '","options":[';
-                                if (type2 == 2 || type2 == 3 || type2 == 4) {
+                                    form = form + '{"text":"' + $(this).find('h3').first().text() + '",' +
+                                            '"type":' + type2 + ', "isRequired":' + isRequired(this) +
+                                            ', "fontFamily":"' + style2[0] + '", "fontStyle":"' + style2[1] + '","textColor":"' + style2[2];
+                                    form = form + '","options":[';
+                                    if (type2 == 2 || type2 == 3 || type2 == 4) {
 
-                                    $(this).find('.option').each(function () {
-                                        form = form + '{"optionText":"' + $(this).val() + '"},';
-                                    });
-                                    form = form.slice(0,form.length-1);
+                                        $(this).find('.option').each(function () {
+                                            form = form + '{"optionText":"' + $(this).val() + '"},';
+                                        });
+                                        form = form.slice(0, form.length - 1);
 
-                                }
-                                form = form + ']},';
-                            });
+                                    }
+                                    form = form + ']},';
+                                });
 
-                            form = form.slice(0,form.length-1);
-                            form = form + ']}';
+                                form = form.slice(0, form.length - 1);
+                                form = form + ']}';
+                            }
+
+                            form = form + '},';
                         }
-                        else
-                                form = form + '}';
-                        form = form + '},';
                     });
                     form = form.slice(0,form.length-1);
                     form = form + ']';
@@ -437,10 +440,11 @@
                 else
                     form = form + ',"options":[]';
                 form = form + '},';
-            });
+            }});
 
             form = form.slice(0,form.length-1);
             form = form + ']}';
+            console.log(count);
             console.log(form);
             sendForm(JSON.parse(form));
         }
