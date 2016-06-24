@@ -437,8 +437,9 @@
                     form = form.slice(0,form.length-1);
                     form = form + ']';
                 }
-                else
+                else{
                     form = form + ',"options":[]';
+                }
                 form = form + '},';
             }});
 
