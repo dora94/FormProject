@@ -333,8 +333,8 @@
                     break;
                 case "3":
                     if(!$(element).parent().parent().find('.choicesList:first').length)
-                        $(element).parent().parent().find('.optionsList:first').append("<select class='choicesList option'></select>");
-                    $(element).parent().parent().find('.choicesList:first').append('<option value="' + $('.optionText').val() + '" >' + $('.optionText').val()+'</option><br>');
+                        $(element).parent().parent().find('.optionsList:first').append("<select class='choicesList'></select>");
+                    $(element).parent().parent().find('.choicesList:first').append('<option class="option" value="' + $('.optionText').val() + '" >' + $('.optionText').val()+'</option><br>');
                     $(element).siblings().first().val("");
                     break;
                 case "4":
