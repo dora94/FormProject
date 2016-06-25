@@ -6,10 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Submission extends Model
 {
-    protected $table = 'submission';
+    protected $table = 'submissions';
 
     protected $fillable = [
         'submissionDate',
         'form_id'
     ];
+
+    public function submissions()
+    {
+        return $this->hasMany('App\Models\Answer');
+    }
 }

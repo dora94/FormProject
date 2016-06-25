@@ -20,11 +20,25 @@ class FormController extends Controller
     public function showCreate(){
         return view('form.formGenerator');
     }
+
+    public function getFile($name)
+    {
+        return response()->download(base_path() . '/public/uploads/' .$name);
+    }
+
     public function storeFile(Request $request)
     {
-        $fileExt ="." . $request->file('fileUpload')->getClientOriginalExtension();
-        $request->file('fileUpload')->move(base_path() . '/public/uploads', Session::pull('url', 'default') . $fileExt);
+        $url = Session::pull('url', 'default');
+        if(isset($request['fileUpload']))
+        {
+            $fileExt = "." . $request->file('fileUpload')->getClientOriginalExtension();
+            $request->file('fileUpload')->move(base_path() . '/public/uploads/', $url . $fileExt);
 
+            $form = Form::where('url', $url)->first();
+
+            $form->file_extension = $fileExt;
+            $form->save();
+        }
     }
     
     public function store(Request $request)
@@ -32,12 +46,13 @@ class FormController extends Controller
         $recieved = $request['data'];
         $user =  $request->user();
         $url = uniqid();
+
         Session::put("url",$url);
         $form = [
             'title' => $recieved['title'],
             'description' => $recieved['description'],
             'user_id' => Auth::user()->id,
-           'isQuiz' => $recieved['isQuiz'],
+           'isQuiz' => $recieved['isQuiz'] == 'true' ? 1 : 0,
             'url' => $url
         ];
         $form = Form::create($form);
@@ -51,13 +66,29 @@ class FormController extends Controller
 
     }
 
+    public function getFormInformation()
+    {
+        $user = Auth::user()->id;
+
+        $forms = Form::where('user_id',$user)->get();
+        $infoArray = [];
+
+        foreach($forms as $form)
+        {
+            array_push($infoArray,array('title'=>$form->title, 'description'=>$form->description, 'url'=>$form->url));
+        }
+//        return $user;
+        return view('form.formList',['forms'=>$infoArray]);
+    }
+
     public function showSubmission($url){
         $form = Form::where('url',$url)->first();
         $jsonReturnArray = [
             'title' => $form->title,
             'description' => $form->description,
             'isQuiz' => $form->isQuiz == 0 ? false : true,
-            'url' => $form->url
+            'url' => $form->url,
+            'file_extension' => $form->file_extension
         ];
         $questions = $form->questions;
         $questionsArray = [];
@@ -65,6 +96,7 @@ class FormController extends Controller
             $currentQuestionArray = [
                 'text' => $question->title,
                 'type' => $question->type,
+                'id' => $question->id,
                 'isRequired' => $question->isRequired == 0 ? false : true,
                 'fontFamily' => $question->fontfamily,
                 'fontStyle' => $question->fontstyle,
@@ -84,6 +116,7 @@ class FormController extends Controller
                         $currentQuestionArray2 = [
                             'text' => $question2->title,
                             'type' => $question2->type,
+                            'id'=> $question2->id,
                             'isRequired' => $question2->isRequired == 0 ? false : true,
                             'fontFamily' => $question2->fontfamily,
                             'fontStyle' => $question2->fontstyle,
@@ -108,6 +141,8 @@ class FormController extends Controller
             $questionsArray[] = $currentQuestionArray;
         }
         $jsonReturnArray['questions'] = $questionsArray;
-        return response()->json($jsonReturnArray);
+
+        return view('form.formSubmission',['form'=>$jsonReturnArray]);
+//        return response()->json($jsonReturnArray);
     }
 }

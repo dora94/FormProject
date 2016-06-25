@@ -16,9 +16,11 @@ class OptionService
     public function create($data, $questionId)
     {
         $title = $data['optionText'];
+        $checked =$data['isChecked'];
         $option = Option::create([
             'title' => $title,
-            'question_id' => $questionId
+            'question_id' => $questionId,
+            'isChecked' => $checked == 'true' ? 1 : 0
         ]);
         if (isset($data['section'])) {
             $sectionSrv = new SectionService();

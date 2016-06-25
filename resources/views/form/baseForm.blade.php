@@ -378,23 +378,25 @@
                 data: { data: data , _token: '{{app('Illuminate\Encryption\Encrypter')->encrypt(csrf_token())}}'},
                 success: function(info){
                     console.log(info);
-                    var fd = new FormData();
-                    fd.append( 'fileUpload', $('#fileUpload').get(0).files[0] );
 
-                    $.ajax({
-                        url: 'generate/upload',
-                        data: fd,
-                        processData: false,
-                        contentType: false,
-                        type: 'POST',
-                        success: function(data){
-                            console.log(data);
-                        },
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            console.log(xhr.status);
-                            console.log(thrownError);
-                        }
-                    });
+                    var fd = new FormData();
+                    if($('#fileUpload').get(0).files[0] != undefined) {
+                        fd.append('fileUpload', $('#fileUpload').get(0).files[0]);
+                        $.ajax({
+                            url: 'generate/upload',
+                            data: fd,
+                            processData: false,
+                            contentType: false,
+                            type: 'POST',
+                            success: function (data) {
+                                console.log(data);
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                console.log(xhr.status);
+                                console.log(thrownError);
+                            }
+                        });
+                    }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr.status);
@@ -423,7 +425,7 @@
                     form = form + ',"options":[';
                     $(this).children().each(function() {
                         if ($(this).hasClass('option')) {
-                            form = form + '{"optionText":"' + $(this).val() + '"';
+                            form = form + '{"isChecked":' + $(this).is(':checked') + ',"optionText":"' + $(this).val() + '"';
 
                             if (type == 5) {
                                 form = form + ',"section":{"questions":[';
@@ -438,7 +440,7 @@
                                     if (type2 == 2 || type2 == 3 || type2 == 4) {
 
                                         $(this).find('.option').each(function () {
-                                            form = form + '{"optionText":"' + $(this).val() + '"},';
+                                            form = form + '{"isChecked":' + $(this).is(':checked') + ',optionText":"' + $(this).val() + '"},';
                                         });
                                         form = form.slice(0, form.length - 1);
 

@@ -15,9 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/forms',function(){
-   return view('form/formList');
-});
+Route::get('/forms','FormController@getFormInformation');
 
 Route::get('/basic', function () {
     return view('base/navBar');
@@ -27,6 +25,11 @@ Route::get('generate', 'FormController@showCreate');
 Route::post('generate/upload','FormController@storeFile');
 Route::post('generate','FormController@store');
 Route::get('submit/{url}', 'FormController@showSubmission');
+Route::get('submission/{url}','SubmissionController@getSubmissions');
+Route::get('submission/{url}/download','SubmissionController@getSubmissionsFile');
+Route::post('submission/save','SubmissionController@storeSubmission');
+Route::get('download/{name}','FormController@getFile');
+
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

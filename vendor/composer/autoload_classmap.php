@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddForeignKeys' => $baseDir . '/database/migrations/2016_06_24_184958_add_foreign_keys.php',
+    'AddFormFields' => $baseDir . '/database/migrations/2016_06_25_124051_add_form_fields.php',
     'CreateAnswersTable' => $baseDir . '/database/migrations/2016_06_19_115801_create_answers_table.php',
     'CreateFormsTable' => $baseDir . '/database/migrations/2016_06_19_114228_create_forms_table.php',
     'CreateOptionsTable' => $baseDir . '/database/migrations/2016_06_19_115401_create_options_table.php',

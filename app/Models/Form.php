@@ -23,4 +23,9 @@ class Form extends Model
     {
         return $this->hasMany('App\Models\Question');
     }
+
+    public function submissions()
+    {
+        return $this->hasMany('App\Models\Submission');
+    }
 }

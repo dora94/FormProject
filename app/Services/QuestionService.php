@@ -10,6 +10,8 @@ namespace App\Services;
 
 
 use App\Models\Question;
+use App\Models\Option;
+use App\Models\Section;
 
 class QuestionService
 {
@@ -24,7 +26,7 @@ class QuestionService
         $question = Question::create([
             'title' => $title,
             'type' => $type,
-            'isRequired' => $isRequired,
+            'isRequired' => $isRequired == 'true' ? 1 : 0,
             'fontfamily' => $fontFamily,
             'fontcolor' => $fontColor,
             'fontstyle' => $fontStyle,
@@ -38,5 +40,41 @@ class QuestionService
             }
         }
 
+    }
+
+
+    public function getTitles($form_id)
+    {
+        $titles = [];
+
+        $questions = Question::where('form_id',$form_id)->get();
+
+        foreach($questions as $question)
+        {
+            array_push($titles,$question->title);
+
+            if($question->type == 5)
+            {
+                $options = Option::where('question_id',$question->id)->get();
+
+                foreach($options as $option)
+                {
+                    $sections = Section::where('option_id',$option->id)->get();
+
+                    foreach($sections as $section)
+                    {
+                        $questions2 = Question::where('section_id',$section->id)->get();
+
+                        foreach($questions2 as $question2)
+                        {
+                            array_push($titles,$question2->title);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        return $titles;
     }
 }
