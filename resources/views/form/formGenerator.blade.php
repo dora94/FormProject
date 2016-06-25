@@ -20,6 +20,10 @@
         </select>
         <input type="color" class="globalFontColor" title="Text colour">
         <br><br>
+
+        <input type="file" id="fileUpload">
+
+
     </div>
     <div class="newQuestion">
         <select class="questionType">
