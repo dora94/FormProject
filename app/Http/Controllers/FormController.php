@@ -50,4 +50,64 @@ class FormController extends Controller
         }
 
     }
+
+    public function showSubmission($url){
+        $form = Form::where('url',$url)->first();
+        $jsonReturnArray = [
+            'title' => $form->title,
+            'description' => $form->description,
+            'isQuiz' => $form->isQuiz == 0 ? false : true,
+            'url' => $form->url
+        ];
+        $questions = $form->questions;
+        $questionsArray = [];
+        foreach($questions as $question){
+            $currentQuestionArray = [
+                'text' => $question->title,
+                'type' => $question->type,
+                'isRequired' => $question->isRequired == 0 ? false : true,
+                'fontFamily' => $question->fontfamily,
+                'fontStyle' => $question->fontstyle,
+                'textColor' => $question->fontcolor
+            ];
+            $options = $question->options;
+            $optionsArray =[];
+            foreach ($options as $option){
+                $currentOptionArray = [
+                    'optionText' => $option->title
+                ];
+                $section = $option->section;
+                if(isset($section)){
+                    $questions2 = $section->questions;
+                    $questionsArray2 = [];
+                    foreach ($questions2 as $question2){
+                        $currentQuestionArray2 = [
+                            'text' => $question2->title,
+                            'type' => $question2->type,
+                            'isRequired' => $question2->isRequired == 0 ? false : true,
+                            'fontFamily' => $question2->fontfamily,
+                            'fontStyle' => $question2->fontstyle,
+                            'textColor' => $question2->fontcolor,
+                        ];
+                        $options2 = $question2->options;
+                        $optionsArray2 = [];
+                        foreach ($options2 as $option2){
+                            $currentOptionArray2 = [
+                                'optionText' => $option2->title
+                            ];
+                            $optionsArray2[] = $currentOptionArray2;
+                        }
+                        $currentQuestionArray2['options'] = $optionsArray2;
+                        $questionsArray2[] = $currentQuestionArray2;
+                    }
+                    $currentOptionArray['section'] = ['questions' => $questionsArray2];
+                }
+                $optionsArray[] = $currentOptionArray;
+            }
+            $currentQuestionArray['options'] = $optionsArray;
+            $questionsArray[] = $currentQuestionArray;
+        }
+        $jsonReturnArray['questions'] = $questionsArray;
+        return response()->json($jsonReturnArray);
+    }
 }

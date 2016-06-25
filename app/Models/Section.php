@@ -11,4 +11,14 @@ class Section extends Model
     protected $fillable = [
         'option_id'
     ];
+
+    public function option()
+    {
+        return $this->belongsTo('App\Models\Option');
+    }
+
+    public function questions()
+    {
+        return $this->hasMany('App\Models\Question');
+    }
 }

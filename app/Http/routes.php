@@ -26,6 +26,7 @@ Route::get('/basic', function () {
 Route::get('generate', 'FormController@showCreate');
 Route::post('generate/upload','FormController@storeFile');
 Route::post('generate','FormController@store');
+Route::get('submit/{url}', 'FormController@showSubmission');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

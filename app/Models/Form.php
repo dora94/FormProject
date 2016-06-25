@@ -18,4 +18,9 @@ class Form extends Model
         'maxSubmissions',
         'url'
     ];
+
+    public function questions()
+    {
+        return $this->hasMany('App\Models\Question');
+    }
 }

@@ -18,4 +18,19 @@ class Question extends Model
         'fontstyle',
         'section_id'
     ];
+
+    public function form()
+    {
+        return $this->belongsTo('App\Models\Form');
+    }
+
+    public function options()
+    {
+        return $this->hasMany('App\Models\Option');
+    }
+
+    public function section()
+    {
+        return $this->belongsTo('App\Models\Section');
+    }
 }

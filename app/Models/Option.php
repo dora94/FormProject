@@ -13,4 +13,14 @@ class Option extends Model
         'question_id',
         'isChecked'
     ];
+
+    public function question()
+    {
+        return $this->belongsTo('App\Models\Question');
+    }
+
+    public function section()
+    {
+        return $this->hasOne('App\Models\Section');
+    }
 }
