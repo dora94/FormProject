@@ -16,7 +16,7 @@ class CreateQuestionsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->integer('type');
-            $table->integer('form_id')->unsigned();
+            $table->integer('form_id')->unsigned()->nullable();
             $table->boolean('isRequired');
             $table->string('fontfamily');
             $table->string('fontcolor');

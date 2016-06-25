@@ -15,6 +15,7 @@ class Question extends Model
         'isRequired',
         'fontfamily',
         'fontcolor',
-        'fontstyle'
+        'fontstyle',
+        'section_id'
     ];
 }
