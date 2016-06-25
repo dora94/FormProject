@@ -24,7 +24,7 @@ Route::get('/basic', function () {
 });
 
 Route::get('generate', 'FormController@showCreate');
-
+Route::post('generate/upload','FormController@storeFile');
 Route::post('generate','FormController@store');
 
 Route::controllers([

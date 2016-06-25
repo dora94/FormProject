@@ -371,12 +371,30 @@
         }
         function sendForm(data){
             console.log(data);
+
             $.ajax({
                 url: 'generate',
                 type: 'POST',
                 data: { data: data , _token: '{{app('Illuminate\Encryption\Encrypter')->encrypt(csrf_token())}}'},
                 success: function(info){
                     console.log(info);
+                    var fd = new FormData();
+                    fd.append( 'fileUpload', $('#fileUpload').get(0).files[0] );
+
+                    $.ajax({
+                        url: 'generate/upload',
+                        data: fd,
+                        processData: false,
+                        contentType: false,
+                        type: 'POST',
+                        success: function(data){
+                            console.log(data);
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            console.log(xhr.status);
+                            console.log(thrownError);
+                        }
+                    });
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr.status);

@@ -20,9 +20,9 @@
         </select>
         <input type="color" class="globalFontColor" title="Text colour">
         <br><br>
-
-        <input type="file" id="fileUpload">
-
+        <form method="post" action="" id="fileSave" enctype="multipart/form-data">
+            <input type="file" id="fileUpload" name="fileUpload">
+        </form>
 
     </div>
     <div class="newQuestion">
