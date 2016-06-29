@@ -17,7 +17,7 @@
             color:lightgrey;
         }
         .logoSection{
-            width:85%;
+            width:75%;
             height:90%;
             float:left;
         }
@@ -26,12 +26,9 @@
         }
         .menuSection{
             height:90%;
-            width:15%;
+            width:25%;
             float:left;
             text-align:right;
-        }
-        .menuImages{
-            height:30px;
         }
 
         .removeQuestion img{
@@ -51,7 +48,7 @@
 
         li{
             float:left;
-            width:50px;
+            width:60px;
             text-align: center;
         }
 
@@ -70,7 +67,55 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script>
         function changeLanguage(lang){
-
+            data = JSON.parse('{"locale":"' + lang + '"}');
+            $.ajax({
+                url: '/language',
+                type: 'POST',
+                data: { data: data , _token: '{{app('Illuminate\Encryption\Encrypter')->encrypt(csrf_token())}}'},
+                success: function(info){
+                    console.log(info);
+                    $('#title').attr('placeholder',info['title']);
+                    $('#description').attr('placeholder',info['description']);
+                    $('#quiz').text(info['quiz']);
+                    $('#maxsub').attr('placeholder',info['max']);
+                    $('#fileUpload').attr('placeholder',info['fileUpload']);
+                    $('.questionText').each(function(){
+                        $(this).attr('placeholder',info['questiontext']);
+                    });
+                    $('.addQuestionButton').each(function(){
+                        $(this).attr('value',info['addquestion']);
+                    });
+                    $('.addOptionButton').each(function(){
+                        $(this).attr('value',info['addoption']);
+                    });
+                    $('#saveForm').attr('value',info['saveform']);
+                    $('.op1').each(function() {
+                        $(this).text(info['textanswer']);
+                    });
+                    $('.op2').each(function() {
+                        $(this).text(info['radio']);
+                    });
+                    $('.op3').each(function(){
+                                $(this).text(info['select']);
+                    });
+                    $('.op4').each(function(){
+                                $(this).text(info['checkbox']);
+                    });
+                    $('.op5').each(function(){
+                                $(this).text(info['condition']);
+                    });
+                    $('.op6').each(function(){
+                                $(this).text(info['date']);
+                    });
+                    $('.op7').each(function(){
+                                $(this).text(info['number']);
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
         }
     </script>
 <body>
@@ -81,8 +126,10 @@
     <div class="menuSection">
         <ul id="menuBar">
             <li><img src="/images/english.png" class="langImages" onclick='changeLanguage("en")'></li>
-             <li><img src="/images/romana.png" class="langImages" onclick='changeLanguage("ro")'></li>
-            <li><img src="/images/login.png" class="menuImages"></li>
+            <li><img src="/images/romana.png" class="langImages" onclick='changeLanguage("ro")'></li>
+            <li><a href="/forms" id="forms">Forms</a></li>
+            <li><a href="/generate" id="generate">Generate</a></li>
+            <li><a href="/auth/logout" id="logout">Logout</a></li>
         </ul>
     </div>
 </nav>

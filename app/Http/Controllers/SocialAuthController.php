@@ -12,6 +12,7 @@ use Socialite;
 
 class SocialAuthController extends Controller
 {
+    
     public function redirect()
     {
         return Socialite::driver('facebook')->redirect();
@@ -23,6 +24,6 @@ class SocialAuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->to('/');
+        return redirect()->to('/generate');
     }
 }

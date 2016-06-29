@@ -47,7 +47,6 @@
             display:block;
             text-align: left;
             padding-bottom:10px;
-            border: 1px solid #2e6da4;
         }
 
         .actionsButton{
@@ -137,6 +136,7 @@
                     data: { data: data , _token: '{{app('Illuminate\Encryption\Encrypter')->encrypt(csrf_token())}}'},
                     success: function(info){
                         console.log(info);
+                        alert("Submission has ben succesfully sent!");
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         console.log(xhr.status);
@@ -193,25 +193,24 @@
                 <a href="{{ URL::to( '/download/' . $form['url'] . $form['file_extension']) }}" target="_blank">File</a>
             @endif
         </div>
-
+        <form action="">
         @foreach($form['questions'] as $question)
-
-            <h3>{{$question['text']}}</h3>
+            <h3 style="font-family:{{$question['fontFamily']}};font-style:{{$question['fontStyle']}};color:{{$question['textColor']}}">{{$question['text']}}</h3>
             @if($question['type'] == 1)
-                <div class="question textQuestion" id={{$question['id']}}>
-                <input type="text" class="answerText">
+                <div class="question textQuestion" id={{$question['id']}} >
+                <input type="text" class="answerText" {{$question['isRequired'] == true ? 'required' : ''}}>
              @elseif($question['type'] == 2)
                  <div class="question radioQuestion" id={{$question['id']}}>
                  @foreach($question['options'] as $option)
-                    <input type="radio" name={{$question['id']}} value="{{$option['optionText']}}" >{{$option['optionText']}}</br>
-                @endforeach
-             @elseif($question['type'] == 3)
-                <div class="question selectQuestion" id={{$question['id']}}>
-                @foreach($question->options as $option)
-                    <input type="checkbox" name={{$question['id']}} value="{{$option['optionText']}}" >{{$option['optionText']}}</br>
+                    <input type="radio" name={{$question['id']}} value="{{$option['optionText']}}" {{$question['isRequired'] == true ? 'required' : ''}}>{{$option['optionText']}}</br>
                 @endforeach
              @elseif($question['type'] == 4)
-                 <div class="question checkboxQuestion" id={{$question['id']}}>
+                <div class="question checkboxQuestion" id={{$question['id']}}>
+                @foreach($question['options'] as $option)
+                    <input type="checkbox" name={{$question['id']}} value="{{$option['optionText']}}" {{$question['isRequired'] == true ? 'required' : ''}}>{{$option['optionText']}}</br>
+                @endforeach
+             @elseif($question['type'] == 3)
+                 <div class="question selectQuestion" id={{$question['id']}}>
                  <select class='choicesList'>
                 @foreach($question['options'] as $option)
                     <option value="{{$option['optionText']}}" >{{$option['optionText']}}</option>
@@ -220,7 +219,7 @@
              @elseif($question['type'] == 5)
                 <div class="question conditionQuestion" id={{$question['id']}}>
                 @foreach($question['options'] as $option)
-                    <input type="radio" name={{$question['id']}} class="conditionRadio" value="{{$option['optionText']}}" >{{$option['optionText']}}</br>
+                    <input type="radio" name={{$question['id']}} class="conditionRadio" value="{{$option['optionText']}}" {{$question['isRequired'] == true ? 'required' : ''}}>{{$option['optionText']}}</br>
                     @if(isset($option['section']))
                         <?php $section = $option['section'];
                                 ?>
@@ -228,17 +227,17 @@
                         @foreach($section['questions'] as $question2)
                                  <h3>{{$question2['text']}}</h3>
                                     @if($question2['type'] == 1)
-                                        <div class="question textQuestion" id={{$question2['id']}}>
+                                        <div class="question textQuestion" id={{$question2['id']}} {{$question2['isRequired'] == true ? 'required' : ''}}>
                                         <input type="text" class="answerText">
                                     @elseif($question2['type'] == 2)
                                         <div class="question radioQuestion" id={{$question2['id']}}>
                                         @foreach($question2['options'] as $option2)
-                                            <input type="radio" name={{$question2['id']}} value="{{$option2['optionText']}}" >{{$option2['optionText']}}</br>
+                                            <input type="radio" name={{$question2['id']}} value="{{$option2['optionText']}}" {{$question2['isRequired'] == true ? 'required' : ''}}>{{$option2['optionText']}}</br>
                                         @endforeach
                                     @elseif($question2['type'] == 4)
                                         <div class="question checkboxQuestion" id={{$question2['id']}}>
                                         @foreach($question2['options'] as $option2)
-                                            <input type="checkbox" name={{$question2['id']}} value="{{$option2['optionText']}}" >{{$option2['optionText']}}</br>
+                                            <input type="checkbox" name={{$question2['id']}} value="{{$option2['optionText']}}" {{$question2['isRequired'] == true ? 'required' : ''}}>{{$option2['optionText']}}</br>
                                         @endforeach
                                     @elseif($question2['type'] == 3)
                                         <div class="question selectQuestion" id={{$question2['id']}}>
@@ -248,10 +247,10 @@
                                             @endforeach
                                         </select>
                                     @elseif($question2['type'] == 6)
-                                        <div class="question dateQuestion" id={{$question2['id']}}>
+                                        <div class="question dateQuestion" id={{$question2['id']}} {{$question2['isRequired'] == true ? 'required' : ''}}>
                                         <input type="date" class="answerText">
                                     @elseif($question2['type'] == 7)
-                                        <div class="question numberQuestion" id={{$question2['id']}}>
+                                        <div class="question numberQuestion" id={{$question2['id']}} {{$question2['isRequired'] == true ? 'required' : ''}}>
                                         <input type="number" class="answerText">
                                     @endif
                                     </div>
@@ -260,14 +259,15 @@
                      @endif
                 @endforeach
              @elseif($question['type'] == 6)
-                    <div class="question dateQuestion">
+                    <div class="question dateQuestion" id={{$question['id']}} {{$question['isRequired'] == true ? 'required' : ''}}>
                     <input type="date" class="answerText">
              @elseif($question['type'] == 7)
-                    <div class="question numberQuestion">
+                    <div class="question numberQuestion" id={{$question['id']}} {{$question['isRequired'] == true ? 'required' : ''}}>
                     <input type="number" class="answerText">
              @endif
              </div>
         @endforeach
+        </form>
         <input type="button" value="Submit" class="submitButton" onclick="loadSubmission()">
 
     </div>

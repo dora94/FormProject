@@ -3,12 +3,18 @@
 <div id="formsList">
     @if($forms != null)
         @foreach($forms as $form)
-            <a href="{{ URL::to("/submit/" . $form['url']) }}">
             <div class="form" id="{{$form['url']}}">
-                <div class="formTitle">{{$form['title']}}</div>
+                <a href="{{ URL::to("/submit/" . $form['url']) }}">
+                    <div class="formTitle">{{$form['title']}}</div>
+                </a>
                 <div class="formDescription"><p>{{$form['description']}}</p></div>
+                <a href = "{{URL::to("/remove/" . $form['url'])}}">
+                    <input type="button" value="Remove form">
+                </a>
+                <a href = "{{URL::to("/submission/" . $form['url'])}}">
+                    <input type="button" value="View submissions">
+                </a>
             </div>
-            </a>
         @endforeach
     @endif
 </div>
@@ -27,8 +33,9 @@
 
     .form{
         margin: 2%;
-        width:20%;
-        height:100px;
+        width:22%;
+        height:120px;
+        max-height:120px;
         border:1px solid #2e6da4;
         border-radius:5px;
         float:left;
@@ -49,10 +56,21 @@
 
     .formDescription{
         width:100%;
-        heigth:60%;
+        height: 80px;
         color:black;
         overflow: auto;
-        max-height: 80px;
+        max-height: 99px;
+    }
+
+    a input{
+        width:50%;
+        float:left;
+        height:20%;
+        background-color: #2e6da4;
+        color:white;
+        border:none;
+        text-align: center;
+        font-family: "Calisto MT";
     }
 
 </style>

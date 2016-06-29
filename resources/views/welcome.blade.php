@@ -40,6 +40,7 @@
             <div class="content">
                 <img src="/images/logo.png">
             </div>
+            <a href="{{ URL::to("/auth/login") }}">Login</a>
         </div>
     </body>
 </html>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Submission;
 use App\Services\QuestionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -53,7 +54,8 @@ class FormController extends Controller
             'description' => $recieved['description'],
             'user_id' => Auth::user()->id,
            'isQuiz' => $recieved['isQuiz'] == 'true' ? 1 : 0,
-            'url' => $url
+            'url' => $url,
+            'maxSubmission' => $recieved['maxsubmissions']
         ];
         $form = Form::create($form);
         $formId = $form->id;
@@ -83,6 +85,17 @@ class FormController extends Controller
 
     public function showSubmission($url){
         $form = Form::where('url',$url)->first();
+
+        $count = 0;
+
+        foreach(Submission::where('form_id',$form->id)->get() as $submission)
+        {
+            $count = $count + 1;
+        }
+
+        if($count >= $form->maxSubmission)
+            return view('base.formClosed');
+
         $jsonReturnArray = [
             'title' => $form->title,
             'description' => $form->description,
@@ -144,5 +157,13 @@ class FormController extends Controller
 
         return view('form.formSubmission',['form'=>$jsonReturnArray]);
 //        return response()->json($jsonReturnArray);
+    }
+
+    public function removeForm($url)
+    {
+        $form = Form::where('url',$url)->first();
+        $form->delete();
+
+        return redirect('/forms');
     }
 }

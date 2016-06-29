@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/forms','FormController@getFormInformation');
+Route::get('forms','FormController@getFormInformation');
 
 Route::get('/basic', function () {
     return view('base/navBar');
@@ -30,6 +30,11 @@ Route::get('submission/{url}/download','SubmissionController@getSubmissionsFile'
 Route::post('submission/save','SubmissionController@storeSubmission');
 Route::get('download/{name}','FormController@getFile');
 
+/*Form delete*/
+Route::get('remove/{url}','FormController@removeForm');
+
+/*change language*/
+Route::post('language','TranslationController@getTranslationArray');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',
@@ -48,5 +53,6 @@ Route::get('/sendEmail', function(){
 
 Route::post('/send', 'EmailController@send');
 
+/*Closed form*/
 
 

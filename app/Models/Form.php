@@ -15,7 +15,7 @@ class Form extends Model
         'user_id',
         'isQuiz',
         'isClosed',
-        'maxSubmissions',
+        'maxSubmission',
         'url'
     ];
 

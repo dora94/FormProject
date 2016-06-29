@@ -328,7 +328,7 @@
             else
             switch($(element).parent().siblings().first().val()){
                 case "2":
-                    $(element).parent().parent().find('.optionsList:first').append('<input class="option" type="radio" name="question" value="' + $(element).siblings().first().val() + '" >' + $(element).siblings().first().val()+'<br>');
+                    $(element).parent().parent().find('.optionsList:first').append('<input class="option" type="radio" name="' + $(element).siblings().first().val() + '" value="' + $(element).siblings().first().val() + '" >' + $(element).siblings().first().val()+'<br>');
                     $(element).siblings().first().val("");
                     break;
                 case "3":
@@ -338,11 +338,11 @@
                     $(element).siblings().first().val("");
                     break;
                 case "4":
-                    $(element).parent().parent().find('.optionsList:first').append('<input class="option" type="checkbox" name="question" value="' + $('.optionText').val() + '" >' + $('.optionText').val()+'<br>');
+                    $(element).parent().parent().find('.optionsList:first').append('<input class="option" type="checkbox" name="' + $(element).siblings().first().val() + '" value="' + $('.optionText').val() + '" >' + $('.optionText').val()+'<br>');
                     $(element).siblings().first().val("");
                     break;
                 case "5":
-                    $(element).parent().parent().find('.optionsList:first').append('<input type="radio" name="question" value="' + $('.optionText').val() + '" class="conditionRadio option">' + $('.optionText').val()+'<br>');
+                    $(element).parent().parent().find('.optionsList:first').append('<input type="radio" name="' + $(element).siblings().first().val() + '" value="' + $('.optionText').val() + '" class="conditionRadio option">' + $('.optionText').val()+'<br>');
                     $(element).parent().parent().find('.optionsList:first').append('<div class="newSection"><div class="newQuestion"><select class="questionType"><option value="1">Text Answer</option><option value="2">Single Choice-radio</option><option value="3">Single Choice-select</option><option value="4">Multiple Choice</option><option value="6">Date</option><option value="7">Number</option></select><input type="text" placeholder="Question Text" class="questionText"><input type="button" value="Add Question" class="submitButton" onclick="AddNewQuestion(this)"><div class="optionsList"></div></div></div>');
                     $(element).siblings().first().val("");
                     break;
@@ -373,7 +373,7 @@
             console.log(data);
 
             $.ajax({
-                url: 'generate',
+                url: '/generate',
                 type: 'POST',
                 data: { data: data , _token: '{{app('Illuminate\Encryption\Encrypter')->encrypt(csrf_token())}}'},
                 success: function(info){
@@ -410,7 +410,8 @@
             var isQuiz = $('#isquiz').attr('src') == "/images/checked_checkbox.png";
             var form = '{"title":"' + $('.formInformation').children().first().val() +
                     '","description":"' + $('.formInformation').children()[1].value +
-                    '", "isQuiz":' + isQuiz +',"questions": [';
+                    '","maxsubmissions":' + $('#maxsub').val() +
+                    ', "isQuiz":' + isQuiz +',"questions": [';
             var count = 0;
             $('.mainSection').children().each(function(){
                if($(this).hasClass('question')) {

@@ -5,6 +5,7 @@ return [
     'title' => 'Title',
     'description' => 'Description',
     'required' => 'Required',
+    'questiontext' =>'Question text',
     'addquestion' => 'Add Question',
     'addoption' => 'Add Option',
     'saveform' => 'Save Form',
@@ -14,6 +15,8 @@ return [
     'checkbox' => 'Multiple Choice',
     'condition' => 'Conditional',
     'date' => 'Date',
-    'number' => 'Number'
+    'number' => 'Number',
+    'max' => 'Max submissions',
+    'file' =>'Choose File'
 
 ];
